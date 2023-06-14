@@ -11,6 +11,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LoginService } from './services';
 
 @NgModule({
   imports: [
@@ -24,13 +25,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatTooltipModule,
     MatIconModule,
     MatSnackBarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   declarations: [
   	LoginComponent,
   	LogarComponent
   ],
   providers: [
+    LoginService
   
   ]
 })
