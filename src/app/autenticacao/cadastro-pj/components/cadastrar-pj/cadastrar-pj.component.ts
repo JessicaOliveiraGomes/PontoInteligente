@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CadastroPj } from '../../models';
 import { CpfValidator } from 'src/app/shared/validators';
 import { CnpjValidator } from 'src/app/shared/validators';
+import { CadastroPjService } from '../../services';
 
 @Component({
   selector: 'app-cadastrar-pj',
@@ -16,7 +17,7 @@ export class CadastrarPjComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor( private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) { }
+  constructor( private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router, private cadastroPjService: CadastroPjService) { }
 
   ngOnInit(): void {
     this.gerarForm();
@@ -38,7 +39,23 @@ export class CadastrarPjComponent implements OnInit {
       return;
     }
     const cadastroPj: CadastroPj =  this.form.value;
-    alert(JSON.stringify(cadastroPj));
-  }
+    this.cadastroPjService.cadastrar(cadastroPj).subscribe(
+      data => {
+        console.log(JSON.stringify(data));
+        const msg: string = "Realize o login para acessar o sistema.";
+        this.snackBar.open(msg, "Sucesso", {duration: 5000 });
+        this.router.navigate(['/login']);
+      },
+      err => {
+        console.log(JSON.stringify(err));
+        let msg: string = "Tente novamente em instantes.";
+        if (err.status == 400) {
+          msg = err.error.errors.join(' ');
+        }
+        this.snackBar.open(msg, "Erro", { duration: 5000 });
+      }
+    );
+  return false;
+}
 
 }
