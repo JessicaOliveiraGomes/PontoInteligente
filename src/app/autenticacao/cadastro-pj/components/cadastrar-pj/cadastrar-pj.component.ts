@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CadastroPj } from '../../models';
 import { CpfValidator } from 'src/app/shared/validators';
+import { CnpjValidator } from 'src/app/shared/validators';
 
 @Component({
   selector: 'app-cadastrar-pj',
@@ -28,7 +29,7 @@ export class CadastrarPjComponent implements OnInit {
       senha: ['', [Validators.required, Validators.minLength(6)]],
       cpf: ['', [Validators.required, CpfValidator]],
       razaoSocial: ['', [Validators.required, Validators.minLength(5)]],
-      cnpj: ['', [Validators.required]]
+      cnpj: ['', [Validators.required, CnpjValidator]]
     });
   }
 
